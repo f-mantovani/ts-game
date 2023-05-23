@@ -1,7 +1,17 @@
-import { Player, Obstacle, Bullet } from './src/elements'
+import { Obstacle, Bullet } from './src/elements.js'
+import { Player } from './src/player.js'
+
+type PlayerInfo = {
+	movePlayer: () => void
+	x: number
+	y: number
+	width: number
+	height: number
+	type: string
+}
 
 export class Game {
-	player: {}
+	player: PlayerInfo
 	obstacles: Array<{}>
 	bullets: Array<{}>
 
@@ -9,12 +19,18 @@ export class Game {
 		this.player = new Player()
     this.obstacles = []
     this.bullets = []
+		console.log(this.player)
 	}
 
-	start() {}
+	start() {
+		setInterval(() => {
+			this.player.movePlayer()
+		}, 60)
+	}
 
 	restart() {}
 }
 
 
 const game = new Game ()
+game.start()
