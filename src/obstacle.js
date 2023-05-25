@@ -7,9 +7,7 @@ export class Obstacle extends Base {
         this.keepOnScreen = true;
     }
     removeObstacle() {
-        if (this.y < 0 - this.height) {
-            this.keepOnScreen = false;
-            this.domElement.remove();
-        }
+        this.keepOnScreen = false;
+        this.domElement.remove();
     }
 }
