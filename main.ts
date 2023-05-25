@@ -20,7 +20,6 @@ export class Game {
 		this.obstacles = []
 		this.bullets = []
 		this.time = 0
-		console.log(this.player)
 	}
 
 	start() {
@@ -34,9 +33,8 @@ export class Game {
 			})
 			if (this.time % 100 === 0) {
 				this.obstacles.push(new Obstacle())
-				console.log(this.obstacles)
 			}
-		}, 10)
+		}, 20)
 	}
 
 	restart() {}

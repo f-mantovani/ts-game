@@ -25,6 +25,9 @@ export class Player extends Base {
 				case 'ArrowLeft':
 					this.keysPressed.left = true
 					break
+				case 'Space':
+					console.log('space')
+					break
 			}
 		}
 
@@ -50,9 +53,9 @@ export class Player extends Base {
 	}
 
 	movePlayer() {
-		if (this.keysPressed.up) this.move('up')
-		if (this.keysPressed.down) this.move('down')
-		if (this.keysPressed.right) this.move('right')
-		if (this.keysPressed.left) this.move('left')
+		if (this.keysPressed.up && this.y + this.height < 100) this.move('up')
+		if (this.keysPressed.down && this.y > 0) this.move('down')
+		if (this.keysPressed.right && this.x + this.width < 100) this.move('right')
+		if (this.keysPressed.left && this.x > 0) this.move('left')
 	}
 }
