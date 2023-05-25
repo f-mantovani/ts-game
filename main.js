@@ -18,10 +18,12 @@ export class Game {
         }, 20);
     }
     collisionDetection(firstInstance, secondInstance) {
-        if (firstInstance.x < secondInstance.x + secondInstance.width &&
-            firstInstance.x + firstInstance.width > secondInstance.x &&
-            firstInstance.y < secondInstance.y + secondInstance.height &&
-            firstInstance.height + firstInstance.y > secondInstance.y) {
+        const firstObject = firstInstance.domElement.getBoundingClientRect();
+        const secondObject = secondInstance.domElement.getBoundingClientRect();
+        if (firstObject.x < secondObject.x + secondObject.width &&
+            firstObject.x + firstObject.width > secondObject.x &&
+            firstObject.y < secondObject.y + secondObject.height &&
+            firstObject.height + firstObject.y > secondObject.y) {
             return true;
         }
         else {
@@ -37,11 +39,11 @@ export class Game {
             obstacle.move('down');
             const isOutside = Boolean(obstacle.y < 0 - obstacle.height);
             if (isOutside) {
-                obstacle.removeObstacle();
+                obstacle.remove();
             }
             const hasColided = this.collisionDetection(obstacle, this.player);
             if (hasColided) {
-                obstacle.removeObstacle();
+                obstacle.remove();
             }
         });
     }

@@ -15,6 +15,7 @@ export class Base {
 	height: number
 	domElement: HTMLDivElement
 	type: string
+	keepOnScreen: boolean
 
 	constructor({ x, y, width, height, type }: BaseTyping) {
 		this.width = width
@@ -22,6 +23,7 @@ export class Base {
 		this.x = x - this.width / 2
 		this.y = y
 		this.type = type
+		this.keepOnScreen = true
 
 		this.domElement = this.createDomElement()
 	}
@@ -62,4 +64,10 @@ export class Base {
 				console.log("something went wrong we shouldn't be here")
 		}
 	}
+
+	remove() {
+		this.keepOnScreen = false
+		this.domElement.remove()
+	}
+
 }

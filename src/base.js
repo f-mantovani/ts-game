@@ -5,6 +5,7 @@ export class Base {
         this.x = x - this.width / 2;
         this.y = y;
         this.type = type;
+        this.keepOnScreen = true;
         this.domElement = this.createDomElement();
     }
     createDomElement() {
@@ -39,5 +40,9 @@ export class Base {
             default:
                 console.log("something went wrong we shouldn't be here");
         }
+    }
+    remove() {
+        this.keepOnScreen = false;
+        this.domElement.remove();
     }
 }
