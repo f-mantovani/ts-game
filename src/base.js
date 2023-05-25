@@ -36,16 +36,8 @@ export class Base {
                 this.x += 1;
                 this.domElement.style.left = this.x + 'vw';
                 break;
+            default:
+                console.log("something went wrong we shouldn't be here");
         }
-    }
-}
-export class Obstacle {
-    constructor() {
-        console.log('Obstacle');
-    }
-}
-export class Bullet {
-    constructor() {
-        console.log('Particle');
     }
 }

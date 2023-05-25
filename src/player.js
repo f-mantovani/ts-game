@@ -1,4 +1,4 @@
-import { Base } from './elements.js';
+import { Base } from './base.js';
 export class Player extends Base {
     constructor() {
         super({ x: 50, y: 0, width: 10, height: 5, type: 'player' });
@@ -43,12 +43,12 @@ export class Player extends Base {
     }
     movePlayer() {
         if (this.keysPressed.up)
-            super.move('up');
+            this.move('up');
         if (this.keysPressed.down)
-            super.move('down');
+            this.move('down');
         if (this.keysPressed.right)
-            super.move('right');
+            this.move('right');
         if (this.keysPressed.left)
-            super.move('left');
+            this.move('left');
     }
 }

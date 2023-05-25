@@ -5,6 +5,9 @@ type BaseTyping = {
 	height: number
 	type: string
 }
+
+type MoveDirection = 'up' | 'down' | 'right' | 'left'
+
 export class Base {
 	x: number
 	y: number
@@ -37,7 +40,7 @@ export class Base {
 		return domElement
 	}
 
-	move(direction: string) {
+	move(direction: MoveDirection): void {
 		switch (direction) {
 			case 'up':
 				this.y += 1
@@ -55,20 +58,8 @@ export class Base {
 				this.x += 1
 				this.domElement.style.left = this.x + 'vw'
 				break
+			default:
+				console.log("something went wrong we shouldn't be here")
 		}
-	}
-}
-
-
-
-export class Obstacle {
-	constructor() {
-		console.log('Obstacle')
-	}
-}
-
-export class Bullet {
-	constructor() {
-		console.log('Particle')
 	}
 }
