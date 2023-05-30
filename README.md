@@ -4,14 +4,10 @@
 
 After finishing my bootcamp on Ironhack as a student and got some cohorts as a Teacher Assistant I felt like trying some of the projects again but using TypeScript as a mean to learn a little bit more the different steps on how to do things with that superset of JavaScript
 
----
-
 ## Usage
 
 - Just fork and clone this project
 - Modify as much as you want it
-
----
 
 ## Contents
 
