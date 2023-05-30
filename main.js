@@ -2,20 +2,35 @@ import { Player } from './src/player.js';
 import { Obstacle } from './src/obstacle.js';
 export class Game {
     constructor() {
-        this.player = new Player();
+        this.player = null;
         this.obstacles = [];
         this.bullets = [];
         this.time = 0;
         this.score = 0;
+        this.isPaused = false;
         this.intervalId = null;
+        this.attachListeners();
     }
     start() {
-        this.player.domElement.getBoundingClientRect();
+        this.player = new Player();
+        this.startInterval();
+    }
+    startInterval() {
         this.intervalId = setInterval(() => {
             this.time += 1;
             this.player.movePlayer();
             this.obstacleController();
         }, 20);
+    }
+    pauseGame() {
+        if (this.isPaused) {
+            this.startInterval();
+            this.isPaused = !this.isPaused;
+        }
+        else {
+            clearInterval(this.intervalId);
+            this.isPaused = !this.isPaused;
+        }
     }
     collisionDetection(firstInstance, secondInstance) {
         const firstObject = firstInstance.domElement.getBoundingClientRect();
@@ -47,7 +62,31 @@ export class Game {
             }
         });
     }
-    restart() { }
+    restart() {
+        var _a;
+        clearInterval(this.intervalId);
+        (_a = this.player) === null || _a === void 0 ? void 0 : _a.domElement.remove();
+        this.obstacles.forEach(obstacle => obstacle.domElement.remove());
+        this.player = null;
+        this.obstacles = [];
+        this.bullets = [];
+        this.time = 0;
+        this.score = 0;
+        this.intervalId = null;
+        this.start();
+    }
+    attachListeners() {
+        document.addEventListener('keydown', (event) => {
+            switch (event.code) {
+                case 'KeyX':
+                    this.pauseGame();
+                    break;
+                case 'KeyN':
+                    this.restart();
+                    break;
+            }
+        });
+    }
 }
 const game = new Game();
 game.start();
