@@ -1,10 +1,9 @@
-import { ExtractTypes } from '../main.js'
+import { ExtractTypes } from './types/types.js'
 
-type BaseInfo = ExtractTypes<Base>
-
+export type BaseInfo = ExtractTypes<Base>
+type BaseTyping = Pick<BaseInfo, 'x' | 'y' | 'width' | 'height' | 'speed' | 'type'>
 type MoveDirection = 'up' | 'down' | 'right' | 'left'
 
-type BaseTyping = Pick<BaseInfo, 'x' | 'y' | 'width' | 'height' | 'speed' | 'type'>
 export class Base {
 	x: number
 	y: number

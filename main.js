@@ -1,6 +1,6 @@
 import { Player } from './src/player.js';
 import { Obstacle } from './src/obstacle.js';
-export class Game {
+class Game {
     constructor() {
         this.player = null;
         this.obstacles = [];

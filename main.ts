@@ -1,17 +1,10 @@
-import { Player } from './src/player.js'
-import { Obstacle } from './src/obstacle.js'
-import { Bullet } from './src/bullet.js'
-import { Base } from './src/base.js'
+import { Player, PlayerInfo } from './src/player.js'
+import { Obstacle, ObstacleInfo } from './src/obstacle.js'
+import { Bullet, BulletInfo } from './src/bullet.js'
+import { Base, BaseInfo } from './src/base.js'
+import { ExtractTypes } from './src/types/types.js'
 
-export type ExtractTypes<T> = {
-	[Property in keyof T]: T[Property]
-}
-type PlayerInfo = ExtractTypes<Player>
-type ObstacleInfo = ExtractTypes<Obstacle>
-type BulletInfo = ExtractTypes<Bullet>
-type BaseInfo = ExtractTypes<Base>
-
-export class Game {
+class Game {
 	player: PlayerInfo | null 
 	obstacles: ObstacleInfo[]
 	bullets: BulletInfo[]

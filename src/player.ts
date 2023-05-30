@@ -1,4 +1,7 @@
 import { Base } from './base.js'
+import { ExtractTypes } from './types/types.js'
+
+export type PlayerInfo = ExtractTypes<Player>
 
 export class Player extends Base {
 	keysPressed: { [key: string]: boolean }
