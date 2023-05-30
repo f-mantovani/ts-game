@@ -86,6 +86,43 @@ export class Game {
                     break;
             }
         });
+        const keydownListener = (event) => {
+            switch (event.code) {
+                case 'ArrowUp':
+                    this.player.keysPressed.up = true;
+                    break;
+                case 'ArrowDown':
+                    this.player.keysPressed.down = true;
+                    break;
+                case 'ArrowRight':
+                    this.player.keysPressed.right = true;
+                    break;
+                case 'ArrowLeft':
+                    this.player.keysPressed.left = true;
+                    break;
+                case 'Space':
+                    console.log('space');
+                    break;
+            }
+        };
+        const keyupListener = (event) => {
+            switch (event.code) {
+                case 'ArrowUp':
+                    this.player.keysPressed.up = false;
+                    break;
+                case 'ArrowDown':
+                    this.player.keysPressed.down = false;
+                    break;
+                case 'ArrowRight':
+                    this.player.keysPressed.right = false;
+                    break;
+                case 'ArrowLeft':
+                    this.player.keysPressed.left = false;
+                    break;
+            }
+        };
+        document.addEventListener('keydown', keydownListener);
+        document.addEventListener('keyup', keyupListener);
     }
 }
 const game = new Game();

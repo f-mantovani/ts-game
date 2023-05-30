@@ -3,7 +3,7 @@ import { Obstacle } from './src/obstacle.js'
 import { Bullet } from './src/bullet.js'
 import { Base } from './src/base.js'
 
-type ExtractTypes<T> = {
+export type ExtractTypes<T> = {
 	[Property in keyof T]: T[Property]
 }
 type PlayerInfo = ExtractTypes<Player>
@@ -12,7 +12,7 @@ type BulletInfo = ExtractTypes<Bullet>
 type BaseInfo = ExtractTypes<Base>
 
 export class Game {
-	player: PlayerInfo | null
+	player: PlayerInfo | null 
 	obstacles: ObstacleInfo[]
 	bullets: BulletInfo[]
 	time: number
@@ -111,6 +111,46 @@ export class Game {
 					break
 			}
 		})
+
+		const keydownListener = (event: KeyboardEvent) => {
+			switch (event.code) {
+				case 'ArrowUp':
+					this.player!.keysPressed.up = true
+					break
+				case 'ArrowDown':
+					this.player!.keysPressed.down = true
+					break
+				case 'ArrowRight':
+					this.player!.keysPressed.right = true
+					break
+				case 'ArrowLeft':
+					this.player!.keysPressed.left = true
+					break
+				case 'Space':
+					console.log('space')
+					break
+			}
+		}
+
+		const keyupListener = (event: KeyboardEvent) => {
+			switch (event.code) {
+				case 'ArrowUp':
+					this.player!.keysPressed.up = false
+					break
+				case 'ArrowDown':
+					this.player!.keysPressed.down = false
+					break
+				case 'ArrowRight':
+					this.player!.keysPressed.right = false
+					break
+				case 'ArrowLeft':
+					this.player!.keysPressed.left = false
+					break
+			}
+		}
+
+		document.addEventListener('keydown', keydownListener)
+		document.addEventListener('keyup', keyupListener)
 	}
 }
 

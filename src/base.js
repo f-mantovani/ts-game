@@ -1,11 +1,12 @@
 export class Base {
-    constructor({ x, y, width, height, type }) {
+    constructor({ x, y, width, height, speed, type }) {
         this.width = width;
         this.height = height;
         this.x = x - this.width / 2;
         this.y = y;
         this.type = type;
         this.keepOnScreen = true;
+        this.speed = speed;
         this.domElement = this.createDomElement();
     }
     createDomElement() {
@@ -22,19 +23,19 @@ export class Base {
     move(direction) {
         switch (direction) {
             case 'up':
-                this.y += 1;
+                this.y += this.speed;
                 this.domElement.style.bottom = this.y + 'vh';
                 break;
             case 'down':
-                this.y -= 1;
+                this.y -= this.speed;
                 this.domElement.style.bottom = this.y + 'vh';
                 break;
             case 'left':
-                this.x -= 1;
+                this.x -= this.speed;
                 this.domElement.style.left = this.x + 'vw';
                 break;
             case 'right':
-                this.x += 1;
+                this.x += this.speed;
                 this.domElement.style.left = this.x + 'vw';
                 break;
             default:
