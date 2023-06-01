@@ -1,3 +1,3 @@
 export type ExtractTypes<T> = {
-	[Property in keyof T]: T[Property]
+  [Property in keyof T]: T[Property]
 }

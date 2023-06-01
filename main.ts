@@ -5,7 +5,7 @@ import { Base, BaseInfo } from './src/base.js'
 import { ExtractTypes } from './src/types/types.js'
 
 class Game {
-	player: PlayerInfo | null 
+	player: PlayerInfo | null
 	obstacles: ObstacleInfo[]
 	bullets: BulletInfo[]
 	time: number
@@ -32,7 +32,7 @@ class Game {
 	startInterval() {
 		this.intervalId = setInterval(() => {
 			this.time += 1
-			this.player!.movePlayer()
+			this.player && this.player.movePlayer()
 			this.obstacleController()
 		}, 20)
 	}
@@ -42,7 +42,7 @@ class Game {
 			this.startInterval()
 			this.isPaused = !this.isPaused
 		} else {
-			clearInterval(this.intervalId!)
+			this.intervalId && clearInterval(this.intervalId)
 			this.isPaused = !this.isPaused
 		}
 	}
@@ -66,14 +66,17 @@ class Game {
 		if (this.time % 100 === 0) {
 			this.obstacles.push(new Obstacle())
 		}
-		this.obstacles = this.obstacles.filter(obstacle => obstacle.keepOnScreen === true)
+		this.obstacles = this.obstacles.filter(obstacle => obstacle.keepOnScreen)
 		this.obstacles.forEach((obstacle: ObstacleInfo) => {
 			obstacle.move('down')
 			const isOutside = Boolean(obstacle.y < 0 - obstacle.height)
 			if (isOutside) {
 				obstacle.remove()
 			}
-			const hasColided = this.collisionDetection(obstacle, this.player!)
+			let hasColided
+			if (this.player) {
+				hasColided = this.collisionDetection(obstacle, this.player)
+			}
 			if (hasColided) {
 				obstacle.remove()
 			}
@@ -81,11 +84,12 @@ class Game {
 	}
 
 	restart() {
-		clearInterval(this.intervalId!)
+		this.intervalId && clearInterval(this.intervalId)
 		this.player?.domElement.remove()
 		this.obstacles.forEach(obstacle => obstacle.domElement.remove())
 		this.player = null
 		this.obstacles = []
+
 		this.bullets = []
 		this.time = 0
 		this.score = 0
@@ -95,7 +99,7 @@ class Game {
 
 	attachListeners() {
 		document.addEventListener('keydown', (event: KeyboardEvent) => {
-			switch(event.code) {
+			switch (event.code) {
 				case 'KeyX':
 					this.pauseGame()
 					break
@@ -105,47 +109,50 @@ class Game {
 			}
 		})
 
-		const keydownListener = (event: KeyboardEvent) => {
-			switch (event.code) {
-				case 'ArrowUp':
-					this.player!.keysPressed.up = true
-					break
-				case 'ArrowDown':
-					this.player!.keysPressed.down = true
-					break
-				case 'ArrowRight':
-					this.player!.keysPressed.right = true
-					break
-				case 'ArrowLeft':
-					this.player!.keysPressed.left = true
-					break
-				case 'Space':
-					console.log('space')
-					break
+		const keydownListener /* eslint-disable-line */ = (event: KeyboardEvent) => {
+			if (this.player) {
+				switch (event.code) {
+					case 'ArrowUp':
+						this.player.keysPressed.up = true
+						break
+					case 'ArrowDown':
+						this.player.keysPressed.down = true
+						break
+					case 'ArrowRight':
+						this.player.keysPressed.right = true
+						break
+					case 'ArrowLeft':
+						this.player.keysPressed.left = true
+						break
+					case 'Space':
+						console.log('space')
+						break
+				}
 			}
-		}
 
-		const keyupListener = (event: KeyboardEvent) => {
-			switch (event.code) {
-				case 'ArrowUp':
-					this.player!.keysPressed.up = false
-					break
-				case 'ArrowDown':
-					this.player!.keysPressed.down = false
-					break
-				case 'ArrowRight':
-					this.player!.keysPressed.right = false
-					break
-				case 'ArrowLeft':
-					this.player!.keysPressed.left = false
-					break
+			const keyupListener = (event: KeyboardEvent) => {
+				if (this.player) {
+					switch (event.code) {
+						case 'ArrowUp':
+							this.player.keysPressed.up = false
+							break
+						case 'ArrowDown':
+							this.player.keysPressed.down = false
+							break
+						case 'ArrowRight':
+							this.player.keysPressed.right = false
+							break
+						case 'ArrowLeft':
+							this.player.keysPressed.left = false
+							break
+					}
+				}
 			}
-		}
 
-		document.addEventListener('keydown', keydownListener)
-		document.addEventListener('keyup', keyupListener)
+			document.addEventListener('keydown', keydownListener)
+			document.addEventListener('keyup', keyupListener)
+		}
 	}
 }
-
 const game: ExtractTypes<Game> = new Game()
 game.start()

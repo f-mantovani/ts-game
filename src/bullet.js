@@ -1,5 +1,5 @@
 export class Bullet {
-    constructor() {
-        console.log('Particle');
-    }
+  constructor () {
+    console.log('Particle')
+  }
 }
