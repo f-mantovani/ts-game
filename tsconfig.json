@@ -5,8 +5,5 @@
     "strict": true,
     "moduleResolution": "nodenext"
     
-  },
-  "include": [
-    "main.ts"
-  ]
+  }
 }
